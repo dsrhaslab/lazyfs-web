@@ -26,12 +26,12 @@ const config = {
   url: 'https://taniaesteves.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/tryout',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'taniaesteves', // Usually your GitHub org/user name.
-  projectName: 'XXX', // Usually your repo name.
+  projectName: 'tryout', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -146,10 +146,10 @@ const config = {
                 label: 'Blog',
                 to: '/blog',
               },
-              {
-                label: 'Publications',
-                to: '/docs/publications',
-              }
+              // {
+              //   label: 'Publications',
+              //   to: '/docs/publications',
+              // }
             ],
           },
         ],
