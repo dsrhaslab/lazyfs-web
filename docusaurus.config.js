@@ -26,7 +26,7 @@ const config = {
   url: 'https://taniaesteves.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/tryout/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
