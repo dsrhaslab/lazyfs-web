@@ -75,7 +75,7 @@ function Home() {
                                 'button button--outline button--secondary button--lg',
                                 styles.getStarted,
                             )}
-                            to={useBaseUrl('/docs/gettingstarted')}
+                            to={useBaseUrl('/docs/category/getting-started')}
                         >
                             <Translate id="homepage.getStarted">Get Started</Translate>
                         </Link>

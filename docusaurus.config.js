@@ -26,12 +26,12 @@ const config = {
   url: 'https://dsrhaslab.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/lazyfs/',
+  baseUrl: '/lazyfs-web/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'dsrhaslab', // Usually your GitHub org/user name.
-  projectName: 'lazyfs', // Usually your repo name.
+  projectName: 'lazyfs-web', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
