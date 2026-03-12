@@ -10,8 +10,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'XXX',
-  tagline: 'Description',
+  title: 'LazyFS',
+  tagline: 'A FUSE Filesystem with an internal dedicated page cache, which can be used to simulate data loss on unsynced writes',
   favicon: 'img/favicon.ico',
 
   trailingSlash: false, // Optional: cleaner URLs
@@ -23,15 +23,15 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://taniaesteves.github.io',
+  url: 'https://dsrhaslab.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/tryout/',
+  baseUrl: '/lazyfs/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'taniaesteves', // Usually your GitHub org/user name.
-  projectName: 'tryout', // Usually your repo name.
+  organizationName: 'dsrhaslab', // Usually your GitHub org/user name.
+  projectName: 'lazyfs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -41,7 +41,24 @@ const config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: [
+            'en',
+            'ar',
+            'de',
+            'es',
+            'fr',
+            'hi',
+            'it',
+            'ko',
+            'pl',
+            'pt',
+            'ru',
+            'sv',
+            'ta',
+            'uk',
+            'vi',
+            'zh',
+        ],
   },
 
   presets: [
@@ -92,11 +109,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      // image: 'img/docusaurus-social-card.jpg',
+      image: 'img/LazyFS.png',
       navbar: {
-        title: 'XXX',
+        title: 'LazyFS',
         logo: {
-          alt: 'XXX Logo',
+          alt: 'LazyFS Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -104,7 +122,7 @@ const config = {
           { to: '/bugs/intro', label: 'Bugs', position: 'left' },
           { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/dsrhaslab/XXX',
+            href: 'https://github.com/dsrhaslab/lazyfs',
             label: 'GitHub',
             position: 'right',
           },
@@ -131,11 +149,11 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/dsrhaslab/XXX',
+                href: 'https://github.com/dsrhaslab/lazyfs',
               },
               {
                 label: 'Issues',
-                href: 'https://github.com/dsrhaslab/XXX/issues',
+                href: 'https://github.com/dsrhaslab/lazyfs/issues',
               },
             ],
           },

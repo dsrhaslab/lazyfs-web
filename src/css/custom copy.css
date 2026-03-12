@@ -10,12 +10,12 @@
 
 :root {
     --ifm-color-primary: #6b4f3a;
-    --ifm-color-primary-dark: #5f4633;
-    --ifm-color-primary-darker: #57402e;
-    --ifm-color-primary-darkest: #463425;
-    --ifm-color-primary-light: #7a5c45;
-    --ifm-color-primary-lighter: #876753;
-    --ifm-color-primary-lightest: #9d7f6a;
+--ifm-color-primary-dark: #5f4633;
+--ifm-color-primary-darker: #57402e;
+--ifm-color-primary-darkest: #463425;
+--ifm-color-primary-light: #7a5c45;
+--ifm-color-primary-lighter: #876753;
+--ifm-color-primary-lightest: #9d7f6a;
     --ifm-navbar-link-hover-color: var(--ifm-color-primary);
     --ifm-background-color: #fafafa;
     --ifm-code-font-size: 95%;

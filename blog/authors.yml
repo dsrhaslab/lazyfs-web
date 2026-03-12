@@ -1,25 +1,49 @@
-yangshun:
-  name: Yangshun Tay
-  title: Ex-Meta Staff Engineer, Co-founder GreatFrontEnd
-  url: https://linkedin.com/in/yangshun
-  image_url: https://github.com/yangshun.png
+mariaramos:
+  name: Maria Ramos
+  title: PhD Student at University of Minho
+  url: https://www.inesctec.pt/pt/pessoas/maria-jose-ramos
+  image_url: https://static.vecteezy.com/system/resources/previews/042/332/066/non_2x/person-photo-placeholder-woman-default-avatar-profile-icon-grey-photo-placeholder-female-no-photo-images-for-unfilled-user-profile-greyscale-illustration-for-social-media-free-vector.jpg
   page: true
   socials:
-    x: yangshunz
-    linkedin: yangshun
-    github: yangshun
-    newsletter: https://www.greatfrontend.com
+    github: mj-ramos
 
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
+jtpaulo:
+  name: João Paulo
+  title: Assistant Professor at University of Minho
+  url: https://jtpaulo.github.io
+  image_url: https://jtpaulo.github.io/images/profile.png
   page:
     # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
+    permalink: /all-jtpaulo-articles
   socials:
-    x: sebastienlorber
-    linkedin: sebastienlorber
-    github: slorber
-    newsletter: https://thisweekinreact.com
+    linkedin: jtpaulo
+    github: jtpaulo
+    webpage: https://jtpaulo.github.io
+
+taniaesteves:
+  name: Tânia Esteves
+  title: Assistant Researcher at INESC TEC
+  url: http://taniaesteves.github.io
+  image_url: http://taniaesteves.github.io/images/profile.png
+  page:
+    # customize the url of the author page at /blog/authors/<permalink>
+    permalink: /all-taniaesteves-articles
+  socials:
+    linkedin: tania-esteves
+    github: taniaesteves
+    webpage: http://taniaesteves.github.io
+    x: taniaesteves112
+
+rgmacedo:
+  name: Ricardo Macedo
+  title: Assistant Researcher at INESC TEC
+  url: https://rgmacedo.github.io
+  image_url: https://rgmacedo.github.io/images/rgmacedo-photo-2025-crop.png
+  page:
+    # customize the url of the author page at /blog/authors/<permalink>
+    permalink: /all-rgmacedo-articles
+  socials:
+    linkedin: ricardo-macedo-651947109
+    github: rgmacedo
+    webpage: https://rgmacedo.github.io
+    x: ricardogmacedo

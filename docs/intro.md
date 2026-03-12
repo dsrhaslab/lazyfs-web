@@ -4,9 +4,9 @@ sidebar_position: 1
 
 # Introduction
 
-Let's discover **XXX**.
+Let's discover **LazyFS**.
 
-- quick introduction to XXX
+- quick introduction to LazyFS
 - mention total of bugs found/reproduced
-- mention production systems using XXX
+- mention production systems using LazyFS
 - mention VLDB paper

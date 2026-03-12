@@ -4,7 +4,6 @@ sidebar_position: 1
 
 # Bugs Overview
 
-This page lists bugs found or reproduced by XXX.
+This page lists bugs found or reproduced by LazyFS.
 
-- show list of bugs
-- add a table
+- add a list of bugs
