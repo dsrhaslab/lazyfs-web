@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[1903],{1912:s=>{s.exports=JSON.parse('{"blogBasePath":"/lazyfs/vi/blog","blogTitle":"Blog","authorsListPath":"/lazyfs/vi/blog/authors"}')}}]);
