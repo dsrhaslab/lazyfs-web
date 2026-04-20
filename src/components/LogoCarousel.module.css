@@ -1,83 +1,54 @@
 .companyUsage {
-    width: 100%;
-}
-
-body .companyUsage h3 {
-    font-size: 1.1em;
-    font-weight: 900;
-}
-
-.logos {
-    overflow: hidden;
-}
-
-.logos ul {
-    display: flex;
-    justify-content: space-around;
-    width: 3200px;
-    margin: 0;
-    padding: 0;
-    transition: transform 1000ms ease;
-}
-
-@media screen and (max-width: 1100px) {
-    .logos {
-        margin: 0;
-        padding: 0;
-    }
-    .logos ul {
-        padding: 0;
-        width: 3000px;
-    }
-    .logos ul li {
-        min-width: 125px;
-    }
-}
-
-.logos ul li {
-    display: flex;
-    min-width: 150px;
-    justify-content: center;
-    align-items: center;
-}
-.logos ul img {
-    transition: filter 200ms;
-    width: 100px;
-}
-
-.logos ul a {
-    background: none;
-    border: 0;
-}
-
-.logoNavigation {
+    padding: 2rem 0;
     text-align: center;
 }
 
-.button:focus {
-    outline: none;
+.title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ifm-color-content-secondary);
+    margin-bottom: 2rem;
+    opacity: 0.7;
 }
 
-.button::before {
-    content: "\2022";
-    color: var(--wdio-link-color);
-    font-size: 50px;
-    opacity: .25;
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem 3rem;
 }
 
-.button.buttonActive::before {
+.logoItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    filter: grayscale(100%);
+}
+
+.logoItem:hover {
     opacity: 1;
+    transform: scale(1.06);
+    filter: grayscale(0%);
 }
 
-.button {
-    transition: opacity 200ms ease;
-    color: transparent;
-    border: 0;
-    background: 0;
-    cursor: pointer;
-    padding: 10px 10px 0 10px;
-    width: 30px;
-    line-height: 10px;
-    margin: 0 5px;
-    transform: translateY(20px);
+.logoItem img {
+    height: 36px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        gap: 1.5rem 2rem;
+    }
+    .logoItem img {
+        height: 28px;
+        max-width: 90px;
+    }
 }

@@ -1,125 +1,35 @@
 import React from 'react'
-import clsx from 'clsx'
-import Translate from '@docusaurus/Translate'
-
 import styles from './LogoCarousel.module.css'
 
-const INTERVAL_LENGTH = 5000
-const LOGO_WIDTH = 600
-
-let ticks = 0
 type LogoProps = {
     logos: Array<{
         img: string
         alt: string
         url: string
     }>
-    mytitle?: string;
+    mytitle?: string
 }
 
+export default function LogoCarousel({ logos, mytitle }: LogoProps) {
+    if (!logos || logos.length === 0) return null
 
-type LogoState = {
-    position: number;
-    activePage: number;
-    swapInterval: ReturnType<typeof setInterval>;
-    pages: number;
-    margin: number;
-}
-
-export default class LogoCarousel extends React.Component<LogoProps, LogoState> {
-    containerRef: React.RefObject<HTMLDivElement>
-    mytitle: string
-    list: () => React.JSX.Element
-    buttons: () => React.JSX.Element[]
-
-    state: LogoState
-
-    constructor(props: LogoProps) {
-        super(props)
-        this.state = {
-            position: -0,
-            activePage: 0,
-            swapInterval: null,
-            pages: Math.ceil(props.logos ? props.logos.length / 6 : 1),
-            margin: 20
-        }
-
-        this.containerRef = React.createRef()
-    }
-
-    componentDidMount() {
-        const rect = this.containerRef.current.getBoundingClientRect()
-        const logosPerPage = Math.floor(rect.width / LOGO_WIDTH)
-        this.setState({
-            swapInterval: setInterval(this.nextPage.bind(this), INTERVAL_LENGTH),
-            pages: Math.ceil(this.props.logos ? this.props.logos.length / logosPerPage : 1),
-            margin: rect.width < 700 ? 0 : 50
-        })
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.state.swapInterval)
-    }
-
-    animateTo(i) {
-        const width = this.containerRef.current.getBoundingClientRect().width - this.state.margin
-        const x = i * -width
-        this.setState({ position: x, activePage: i })
-    }
-
-    handleClick(i) {
-        this.animateTo(i)
-        clearInterval(this.state.swapInterval)
-        this.setState({
-            swapInterval: setInterval(this.nextPage.bind(this), INTERVAL_LENGTH)
-        })
-    }
-
-    nextPage() {
-        const pages = this.state.pages - 1
-        const direction = Math.floor(ticks / pages) % 2
-        this.animateTo(direction
-            ? pages - (ticks % pages)
-            : ticks % pages
-        )
-        ++ticks
-    }
-
-    render() {
-        if (!this.props || !this.props.logos) {
-            return (
-                <div></div>
-            )
-        }
-
-        this.buttons = () => [...Array(this.state.pages)].map((_, index) => (
-            <button onClick={() => this.handleClick(index)} key={index} className={clsx(styles.button, index === this.state.activePage ? styles.buttonActive : '')}>{index + 1}</button>
-        ))
-
-        this.list = () => (
-            <ul style={{ transform: `translate(${this.state.position}px, 0px)` }}>
-                {this.props.logos.map((value, index) => (
-                    <li key={index}><a href={value.url} target="_blank" rel="noopener noreferrer"><img src={'img/logos/' + value.img} alt={value.alt} /></a></li>
+    return (
+        <div className={styles.companyUsage}>
+            <h3 className={styles.title}>{mytitle}</h3>
+            <div className={styles.grid}>
+                {logos.map((logo, index) => (
+                    <a
+                        key={index}
+                        href={logo.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.logoItem}
+                        title={logo.alt}
+                    >
+                        <img src={'img/logos/' + logo.img} alt={logo.alt} />
+                    </a>
                 ))}
-            </ul>
-        )
-
-        return (
-            <div className={styles.companyUsage} ref={this.containerRef}>
-                <h3>
-                    <Translate
-                    id="homepage.logoCarousel.title"
-                    values={{ mytitle: this.props.mytitle ?? "" }}>
-                    {'{mytitle}'}
-                    </Translate>
-                </h3>
-                <div className={clsx(styles.logos)}>
-                    {this.list()}
-                    <div className={styles.logoNavigation}>
-                        {this.buttons()}
-                    </div>
-                </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
