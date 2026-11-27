@@ -31,6 +31,17 @@ assets/      logo, sloth icon, favicon, adopter logos
   Then run `python3 build.py` to regenerate `index.html` (it is in `.gitignore`: only `src/` is committed).
   To add a section, create a new file in `src/sections/`; its number sets its place on the page.
 
+## Google Analytics
+
+The site uses Google Analytics 4, loaded **only after the visitor accepts** a small banner
+(GDPR: analytics cookies need consent). The choice is kept in `localStorage` and can be changed
+from the *Analytics settings* link in the footer, which also says the site uses Google Analytics.
+
+- The ID is in `src/layout.html`: `<meta name="ga-id" content="GTM-PSZJGCQM">`. It can be a
+  Tag Manager container (`GTM-…`, GA configured inside GTM) or a GA4 Measurement ID (`G-…`).
+- While it is the placeholder `G-XXXXXXXXXX`, nothing is loaded and the banner and footer note are hidden.
+- The logic is at the end of `app.js`.
+
 ## Run locally
 
 Build the page, then serve the folder with any static file server:

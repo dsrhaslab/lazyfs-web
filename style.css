@@ -307,6 +307,19 @@ section.alt { background: var(--bg-alt); border-block: 1px solid var(--border); 
 footer { border-top: 1px solid var(--border); padding: 2.5rem 0; color: var(--muted); font-size: 0.9rem; }
 .foot { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.25rem; }
 .foot p { margin: 0.25rem 0; max-width: 40rem; }
+.foot .privacy { font-size: 0.8rem; margin-top: 0.75rem; }
+.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--brand); text-decoration: underline; cursor: pointer; }
+
+/* Analytics consent banner */
+.consent {
+  position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 100;
+  max-width: 34rem; margin: 0 auto; padding: 1rem 1.25rem;
+  background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.35); font-size: 0.9rem;
+}
+.consent[hidden] { display: none; }
+.consent p { margin: 0 0 0.75rem; }
+.consent-actions { display: flex; gap: 0.5rem; justify-content: flex-end; flex-wrap: wrap; }
 
 /* Responsive */
 @media (max-width: 860px) {

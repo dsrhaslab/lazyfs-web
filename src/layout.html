@@ -12,6 +12,8 @@
   <meta property="og:image" content="assets/lazyfs-logo.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
+  <!-- Google Tag Manager container (GTM-…) or GA4 Measurement ID (G-…). Loaded only after the visitor accepts (see app.js). -->
+  <meta name="ga-id" content="GTM-PSZJGCQM">
   <link rel="icon" href="assets/favicon.png">
   <link rel="stylesheet" href="style.css">
   <script type="application/ld+json">
@@ -54,8 +56,24 @@
       <a href="https://www.uminho.pt">University of Minho</a>.
     </p>
     <p><a href="https://github.com/dsrhaslab/lazyfs">GitHub</a> · <a href="https://github.com/dsrhaslab/lazyfs/issues">Issues</a> · <a href="#paper">Cite</a></p>
+    <p class="privacy">
+      With your consent, this site uses <a href="https://policies.google.com/technologies/partner-sites">Google Analytics</a>
+      to count visits (anonymous, aggregated statistics; no ads).
+      <button type="button" class="linkish" data-consent-open>Analytics settings</button>
+    </p>
   </div>
 </footer>
+
+<div class="consent" id="consent" role="dialog" aria-live="polite" aria-label="Analytics consent" hidden>
+  <p>
+    Can we use <strong>Google Analytics</strong> to count visits? It sets cookies and sends anonymous usage data to Google.
+    You can change this anytime in the footer.
+  </p>
+  <div class="consent-actions">
+    <button type="button" class="btn" data-consent="denied">No, thanks</button>
+    <button type="button" class="btn primary" data-consent="granted">Accept</button>
+  </div>
+</div>
 
 <script src="app.js" defer></script>
 </body>

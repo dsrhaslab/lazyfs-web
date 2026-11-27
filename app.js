@@ -261,3 +261,70 @@ document.querySelectorAll('.copy').forEach((btn) => {
   // Safety net: never leave content hidden if the observer is slow to fire.
   setTimeout(() => els.forEach((el) => el.classList.add('in')), 2000);
 })();
+
+/* ---------- Google Analytics, only with the visitor's consent ---------- */
+(function analytics() {
+  const KEY = 'lazyfs-analytics-consent'; // 'granted' | 'denied'
+  const id = document.querySelector('meta[name="ga-id"]')?.content || '';
+  const banner = document.getElementById('consent');
+  const isGtm = id.startsWith('GTM-');
+  if (!banner || !/^(G|GTM)-[A-Z0-9]+$/.test(id) || /^G-X+$/.test(id)) {
+    // No real Measurement ID configured: no banner, no tracking, hide the footer note.
+    document.querySelector('.foot .privacy')?.remove();
+    return;
+  }
+
+  const get = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  const set = (v) => { try { localStorage.setItem(KEY, v); } catch { /* private mode */ } };
+
+  let loaded = false;
+  function load() {
+    if (loaded) return;
+    loaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    const s = document.createElement('script');
+    s.async = true;
+    if (isGtm) {
+      // Tag Manager container: GA itself is configured inside GTM.
+      window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+      s.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(id)}`;
+    } else {
+      window.gtag('config', id);
+      s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+    }
+    document.head.appendChild(s);
+  }
+
+  function clearCookies() {
+    // Remove the _ga / _ga_* cookies GA set on this domain and its parents.
+    const host = location.hostname.split('.');
+    const domains = [''];
+    for (let i = 0; i < host.length - 1; i++) domains.push('; domain=.' + host.slice(i).join('.'));
+    document.cookie.split(';').map((c) => c.split('=')[0].trim())
+      .filter((n) => n === '_ga' || n.startsWith('_ga_') || n === '_gid')
+      .forEach((n) => domains.forEach((d) => {
+        document.cookie = `${n}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d}`;
+      }));
+  }
+
+  function choose(v) {
+    set(v);
+    banner.hidden = true;
+    if (v === 'granted') { window[`ga-disable-${id}`] = false; load(); }
+    else {
+      window[`ga-disable-${id}`] = true; // stops an already-loaded gtag from sending more
+      clearCookies();
+    }
+  }
+
+  banner.querySelectorAll('[data-consent]').forEach((b) =>
+    b.addEventListener('click', () => choose(b.dataset.consent)));
+  document.querySelectorAll('[data-consent-open]').forEach((b) =>
+    b.addEventListener('click', () => { banner.hidden = false; }));
+
+  const saved = get();
+  if (saved === 'granted') load();
+  else if (saved !== 'denied') banner.hidden = false;
+})();
