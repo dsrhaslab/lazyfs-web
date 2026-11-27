@@ -1,0 +1,138 @@
+{
+  "adopters": [
+    {
+      "name": "etcd",
+      "note": "robustness tests",
+      "logo": "assets/logos/etcd.png",
+      "url": "https://github.com/etcd-io/etcd/pull/14691"
+    },
+    {
+      "name": "MongoDB",
+      "note": "WiredTiger fault injection",
+      "logo": "assets/logos/mongodb.png",
+      "url": "https://jira.mongodb.org/browse/WT-9368"
+    },
+    {
+      "name": "Jepsen",
+      "note": "power-failure faults",
+      "logo": "assets/logos/jepsen.jpeg",
+      "url": "https://github.com/jepsen-io/jepsen/blob/main/jepsen/src/jepsen/lazyfs.clj"
+    },
+    {
+      "name": "DuckDB",
+      "note": "WAL crash tests",
+      "logo": "assets/logos/duckdb.svg",
+      "url": "https://duckdb.org/2024/10/30/analytics-optimized-concurrent-transactions.html"
+    },
+    {
+      "name": "ArcadeDB",
+      "note": "Jepsen power-loss tests",
+      "logo": "assets/logos/arcadedb.png",
+      "url": "https://github.com/ArcadeData/arcadedb-jepsen"
+    },
+    {
+      "name": "VoltDB",
+      "note": "Jepsen power-loss tests",
+      "logo": "assets/logos/voltdb.png",
+      "url": "https://github.com/VoltDB/jepsen/pull/53"
+    },
+    {
+      "name": "Zato",
+      "note": "power-loss tests",
+      "logo": "assets/logos/zato.png",
+      "url": "https://github.com/zatosource/zato/blob/main/code/zato-common/src/zato/common/test/reliability/lazyfs.py"
+    },
+    {
+      "name": "Pydantic",
+      "note": "OpAMP client crash tests",
+      "logo": "assets/logos/pydantic.png",
+      "url": "https://github.com/pydantic/opamp-clients"
+    }
+  ],
+  "references": [
+    {
+      "title": "Nightmare mode: simulating disk failures",
+      "kind": "Blog",
+      "date": "2026-11",
+      "text": "Antithesis ran a patched LazyFS on customer workloads, where it found subtle data-loss bugs.",
+      "url": "https://antithesis.com/blog/2026/nightmare-mode/"
+    },
+    {
+      "title": "VoltDB Jepsen tests",
+      "kind": "Integration",
+      "date": "2026-10",
+      "text": "VoltDB added LazyFS power-loss and torn-write scenarios to its Jepsen test suite.",
+      "url": "https://github.com/VoltDB/jepsen/pull/53"
+    },
+    {
+      "title": "SpacetimeDB: un-fsync'd writes",
+      "kind": "Bug report",
+      "date": "2026-04",
+      "text": "Jepsen tests on LazyFS found unsynced files and silent data loss after simulated power failures; fixed in October 2026.",
+      "url": "https://github.com/clockworklabs/SpacetimeDB/issues/4886"
+    },
+    {
+      "title": "ArcadeDB 26.11.1",
+      "kind": "Blog",
+      "date": "2026-11",
+      "text": "Crash-safety bugs fixed in this release were found by a Jepsen + LazyFS power-loss sweep.",
+      "url": "https://arcadedb.com/blog/arcadedb-26-11-1"
+    },
+    {
+      "title": "ParticleDB 1.1.4",
+      "kind": "Jepsen report",
+      "date": "2026-10",
+      "text": "The test harness simulated the loss of un-fsynced writes using LazyFS.",
+      "url": "https://jepsen.io/analyses/particledb-1.1.4"
+    },
+    {
+      "title": "NATS 2.12.1",
+      "kind": "Jepsen report",
+      "date": "2025-12",
+      "text": "Jepsen's tests “relied heavily on LazyFS”: simulated power failures lost acknowledged JetStream writes.",
+      "url": "https://jepsen.io/analyses/nats-2.12.1"
+    },
+    {
+      "title": "Capela dda5892",
+      "kind": "Jepsen report",
+      "date": "2025-08",
+      "text": "Capela ran on LazyFS, combining forgotten un-fsynced data with process crashes.",
+      "url": "https://jepsen.io/analyses/capela-dda5892"
+    },
+    {
+      "title": "DuckDB: Analytics-Optimized Concurrent Transactions",
+      "kind": "Blog",
+      "date": "2024-10",
+      "text": "DuckDB re-ran its write-ahead-log crash and durability tests on LazyFS.",
+      "url": "https://duckdb.org/2024/10/30/analytics-optimized-concurrent-transactions.html"
+    },
+    {
+      "title": "MySQL 8.0.34",
+      "kind": "Jepsen report",
+      "date": "2023-12",
+      "text": "The first public Jepsen report using LazyFS, which Jepsen commissioned from INESC TEC in 2022.",
+      "url": "https://jepsen.io/analyses/mysql-8.0.34"
+    },
+    {
+      "title": "etcd robustness tests",
+      "kind": "Integration",
+      "date": "2023-07",
+      "text": "etcd installs LazyFS in CI so its robustness tests can lose un-fsynced writes.",
+      "url": "https://github.com/etcd-io/etcd/pull/14691"
+    },
+    {
+      "title": "MongoDB WiredTiger",
+      "kind": "Integration",
+      "date": "2023-02",
+      "text": "The WiredTiger storage engine extended its fault-injection tests to run on LazyFS.",
+      "url": "https://jira.mongodb.org/browse/WT-9368"
+    },
+    {
+      "title": "Jepsen: jepsen.lazyfs",
+      "kind": "Integration",
+      "date": "2022-05",
+      "text": "Lets any Jepsen test run on LazyFS; used by the etcd, MongoDB, MySQL, NATS and other test suites.",
+      "url": "https://github.com/jepsen-io/jepsen/blob/main/jepsen/src/jepsen/lazyfs.clj"
+    }
+  ]
+}

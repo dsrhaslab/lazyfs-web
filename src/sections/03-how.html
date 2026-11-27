@@ -1,0 +1,67 @@
+  <!-- How it works -->
+  <section id="how">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="sub">
+        LazyFS is a FUSE file system that sits between your system and a regular file system (e.g., ext4). Your system runs unmodified:
+        just point its data directory to the LazyFS mount point. Inside LazyFS, three components decide what reaches the disk.
+      </p>
+
+      <div class="arch">
+        <svg class="diagram" viewBox="0 0 640 360" role="img" aria-labelledby="arch-t">
+          <title id="arch-t">Your system writes through LazyFS. Writes stay in the LazyFS page cache and reach ext4 only on fsync, or when a torn-write fault persists selected parts. The controller receives faults from config.toml or faults.fifo.</title>
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="d-head"/></marker>
+          </defs>
+
+          <!-- top row: aligned with the boxes inside LazyFS -->
+          <rect x="40" y="10" width="365" height="44" rx="10" class="d-box"/>
+          <text x="222.5" y="38" class="d-t">Your database or application</text>
+          <rect x="430" y="10" width="170" height="44" rx="10" class="d-box d-you"/>
+          <text x="515" y="30" class="d-s">Faults: config.toml</text>
+          <text x="515" y="46" class="d-s">or faults.fifo</text>
+
+          <line x1="125" y1="54" x2="125" y2="130" class="d-line" marker-end="url(#ah)"/>
+          <text x="134" y="84" class="d-l">write · read · fsync</text>
+          <line x1="515" y1="54" x2="515" y2="130" class="d-line d-dash" marker-end="url(#ah)"/>
+
+          <!-- LazyFS: 20px inner padding on both sides -->
+          <rect x="20" y="98" width="600" height="146" rx="14" class="d-lfs"/>
+          <text x="40" y="120" class="d-name">LazyFS</text>
+
+          <rect x="40" y="132" width="170" height="94" rx="10" class="d-box"/>
+          <text x="125" y="162" class="d-t">Page cache</text>
+          <text x="125" y="184" class="d-s">Holds unsynced writes;</text>
+          <text x="125" y="201" class="d-s">never flushes on its own</text>
+
+          <rect x="235" y="132" width="170" height="94" rx="10" class="d-box"/>
+          <text x="320" y="162" class="d-t">Write handler</text>
+          <text x="320" y="184" class="d-s">Splits writes and</text>
+          <text x="320" y="201" class="d-s">persists chosen parts</text>
+
+          <rect x="430" y="132" width="170" height="94" rx="10" class="d-box d-ctl"/>
+          <text x="515" y="162" class="d-t">Controller</text>
+          <text x="515" y="184" class="d-s">Injects each fault at</text>
+          <text x="515" y="201" class="d-s">the chosen moment</text>
+          <line x1="430" y1="179" x2="410" y2="179" class="d-line d-dash" marker-end="url(#ah)"/>
+
+          <line x1="125" y1="226" x2="125" y2="304" class="d-line d-ok" marker-end="url(#ah)"/>
+          <text x="134" y="272" class="d-l d-okt">only on fsync</text>
+          <line x1="320" y1="226" x2="320" y2="304" class="d-line d-bad" marker-end="url(#ah)"/>
+          <text x="329" y="272" class="d-l d-badt">torn writes</text>
+
+          <rect x="20" y="306" width="600" height="44" rx="10" class="d-box d-disk"/>
+          <text x="320" y="333" class="d-t">File system (e.g., ext4): what survives a crash</text>
+        </svg>
+
+        <div class="arch-text">
+          <ul class="rules">
+            <li><b>Writes stay in the LazyFS cache.</b> Reads are served from it, so your system always sees its own data.</li>
+            <li><b>Data reaches ext4 only on <code>fsync</code>/<code>fdatasync</code></b>, or when a torn-write fault persists part of it on purpose.</li>
+            <li><b>A fault decides the rest.</b> Whatever is still in the cache when a fault fires is gone, exactly what a power cut would lose.</li>
+            <li><b>You see what was lost.</b> Before each fault, LazyFS logs which blocks were never persisted, so every bug comes with an explanation.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
