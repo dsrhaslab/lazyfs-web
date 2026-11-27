@@ -1,0 +1,76 @@
+  <!-- Faults -->
+  <section id="faults" class="alt">
+    <div class="wrap">
+      <h2>Supported faults</h2>
+      <p class="sub">Every fault can be injected in two ways. Pick one to see the examples:</p>
+      <div class="modes" role="tablist" aria-label="How to inject faults">
+        <button type="button" role="tab" data-mode="fifo" aria-selected="true">At runtime <code>faults.fifo</code></button>
+        <button type="button" role="tab" data-mode="toml" aria-selected="false">At an exact point <code>config.toml</code></button>
+      </div>
+      <p class="mode-note" data-show="fifo">Write a command to the FIFO while your system runs: you decide <em>when</em> the fault happens.</p>
+      <p class="mode-note" data-show="toml" hidden>Declare <code>[[injection]]</code> entries before mounting: LazyFS fires them at a precise call, e.g. “the 2nd group of writes to <code>log.txt</code>”.</p>
+
+      <div class="fault-grid" id="fault-grid" data-mode="fifo">
+        <article>
+          <div class="fault-head"><h3>Lost writes</h3><span class="tag">clear</span></div>
+          <p>Drops every unsynced write but keeps LazyFS running. You kill and restart your system, which is ideal for Jepsen-style tests that crash processes themselves.</p>
+          <pre data-show="fifo"><code>echo "lazyfs::clear-cache" > /tmp/faults.fifo</code></pre>
+          <pre data-show="toml" hidden><code>[[injection]]
+type="clear-cache"
+from="/tmp/lazyfs.root/wal.log"
+op="fsync"
+timing="after"
+occurrence=3</code></pre>
+        </article>
+        <article>
+          <div class="fault-head"><h3>Crash</h3><span class="tag">crash</span></div>
+          <p>Drops unsynced data and kills LazyFS right before or after a system call on a given file. <span class="eg">Crashing before LevelDB renames <code>000002.dbtmp</code> leaves a database that cannot start (bug #3).</span></p>
+          <pre data-show="fifo"><code>echo "lazyfs::crash::timing=before::op=rename::from_rgx=dbtmp" > /tmp/faults.fifo</code></pre>
+          <pre data-show="toml" hidden><code>[[injection]]
+type="clear-cache"
+from="/tmp/lazyfs.root/000002.dbtmp"
+to="/tmp/lazyfs.root/CURRENT"
+op="rename"
+timing="before"
+occurrence=1
+crash=true</code></pre>
+        </article>
+        <article>
+          <div class="fault-head"><h3>Linear torn write</h3><span class="tag">torn-seq · torn-op</span></div>
+          <p>Only the beginning of the data reaches the disk, e.g. the first half of a large write, or the first 2 of 4 writes. <span class="eg">Only the first half of etcd's 16&nbsp;KiB snapshot write: “invalid database” on restart (bug #16).</span></p>
+          <pre data-show="fifo"><code>echo "lazyfs::torn-op::file=/tmp/lazyfs.root/member/snap/db::persist=1::parts=2::occurrence=1" > /tmp/faults.fifo</code></pre>
+          <pre data-show="toml" hidden><code>[[injection]]
+type="torn-op"
+file="/tmp/lazyfs.root/member/snap/db"
+parts=2
+persist=[1]
+occurrence=1</code></pre>
+        </article>
+        <article>
+          <div class="fault-head"><h3>Non-linear torn write</h3><span class="tag">torn-seq · torn-op</span></div>
+          <p>Later data reaches the disk without the data before it, e.g. the 4th write but not the 3rd. <span class="eg">ZooKeeper with its 4th log write but not its 3rd: CRC error on startup (bug #8).</span></p>
+          <pre data-show="fifo"><code>echo "lazyfs::torn-seq::op=write::file=/tmp/lazyfs.root/log.txt::persist=1,4::occurrence=2" > /tmp/faults.fifo</code></pre>
+          <pre data-show="toml" hidden><code>[[injection]]
+type="torn-seq"
+op="write"
+file="/tmp/lazyfs.root/log.txt"
+persist=[1,4]
+occurrence=2</code></pre>
+        </article>
+      </div>
+
+      <p class="more">Both torn writes can be injected on a <b>sequence of writes</b> to a file (<code>torn-seq</code>: choose which writes persist)
+        or on <b>one large write</b> split into parts (<code>torn-op</code>: choose which parts persist). In both cases LazyFS crashes right after.</p>
+
+      <div class="helpers">
+        <h3>Helpers</h3>
+        <ul>
+          <li><code>lazyfs::unsynced-data-report</code>: what would be lost right now.</li>
+          <li><code>lazyfs::cache-checkpoint</code>: write all unsynced data to ext4.</li>
+          <li><code>lazyfs::display-cache-usage</code>: how full the cache is.</li>
+          <li><a href="https://github.com/dsrhaslab/lazyfs/tree/main/logparse"><b>Log parser</b></a>: turn on <code>log_all_operations</code>, then <code>logparse/parse.py</code> turns the log of every system call into a graph, showing where to inject faults.</li>
+        </ul>
+        <p class="more">Full reference in the <a href="https://github.com/dsrhaslab/lazyfs#running-and-injecting-faults">README</a>.</p>
+      </div>
+    </div>
+  </section>

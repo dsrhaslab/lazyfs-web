@@ -1,0 +1,38 @@
+  <!-- Get started -->
+  <section id="start">
+    <div class="wrap">
+      <h2>Get started</h2>
+      <p class="sub">Linux with FUSE 3. Tested on Debian 11 and Ubuntu 20.04 over ext4.</p>
+
+      <div class="code-steps">
+        <div class="code">
+          <div class="code-head"><span>1 · Build</span><button type="button" class="copy">Copy</button></div>
+<pre><code>sudo apt install g++ cmake libfuse3-dev libfuse3-3 fuse3
+echo "user_allow_other" | sudo tee -a /etc/fuse.conf
+git clone https://github.com/dsrhaslab/lazyfs.git && cd lazyfs
+cd libs/libpcache && ./build.sh && cd -
+cd lazyfs && ./build.sh</code></pre>
+        </div>
+        <div class="code">
+          <div class="code-head"><span>2 · Mount</span><button type="button" class="copy">Copy</button></div>
+<pre><code>mkdir -p /tmp/lazyfs.mnt /tmp/lazyfs.root
+./scripts/mount-lazyfs.sh -c config/default.toml \
+    -m /tmp/lazyfs.mnt -r /tmp/lazyfs.root -f</code></pre>
+        </div>
+        <div class="code">
+          <div class="code-head"><span>3 · Break things</span><button type="button" class="copy">Copy</button></div>
+<pre><code># what would be lost right now?
+echo "lazyfs::unsynced-data-report" > /tmp/faults.fifo
+# power failure: drop everything not fsynced
+echo "lazyfs::clear-cache" > /tmp/faults.fifo
+# crash right before an fsync to any file matching "wal"
+echo "lazyfs::crash::timing=before::op=fsync::from_rgx=wal" > /tmp/faults.fifo</code></pre>
+        </div>
+      </div>
+      <p class="more">
+        Precise faults (<code>torn-seq</code>, <code>torn-op</code>, <code>clear</code>) can also be
+        declared in the TOML config: see <a href="#faults">Supported faults</a>. Full reference in the
+        <a href="https://github.com/dsrhaslab/lazyfs#running-and-injecting-faults">README</a>.
+      </p>
+    </div>
+  </section>

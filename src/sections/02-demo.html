@@ -1,0 +1,33 @@
+  <!-- Demo (auto-playing animation) -->
+  <section class="demo-section" aria-labelledby="demo-title">
+    <div class="wrap">
+      <h2 id="demo-title">What happens when the plug is pulled</h2>
+      <p class="sub">Two ways a crash corrupts data: unsynced writes are <b>lost</b>, or only <b>part</b> of them reaches the disk. LazyFS makes both happen on demand, at the exact moment you choose.</p>
+
+      <div class="demo" id="demo">
+        <div class="demo-top">
+          <div class="scen" role="tablist" aria-label="Scenario">
+            <button type="button" role="tab" data-scen="lost" aria-selected="true">Lost writes</button>
+            <button type="button" role="tab" data-scen="torn" aria-selected="false">Torn writes</button>
+          </div>
+          <button type="button" class="play" id="play" aria-label="Pause animation">❚❚</button>
+        </div>
+        <ol class="timeline" id="timeline" aria-label="Steps"></ol>
+
+        <div class="demo-panes">
+          <div class="pane">
+            <div class="pane-title">What your app sees <span>(LazyFS cache)</span></div>
+            <div class="blocks" id="cache"></div>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="pane">
+            <div class="pane-title">What is really on disk <span>(ext4)</span></div>
+            <div class="blocks" id="disk"></div>
+          </div>
+        </div>
+
+        <pre class="demo-term" id="term" aria-live="polite"></pre>
+        <div class="zap" aria-hidden="true">⚡</div>
+      </div>
+    </div>
+  </section>
